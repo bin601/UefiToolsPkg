@@ -98,6 +98,8 @@
   UefiRuntimeLib|MdePkg/Library/UefiRuntimeLib/UefiRuntimeLib.inf
   UefiDriverEntryPoint|MdePkg/Library/UefiDriverEntryPoint/UefiDriverEntryPoint.inf
 
+  PeCoffGetEntryPointLib|MdePkg/Library/BasePeCoffGetEntryPointLib/BasePeCoffGetEntryPointLib.inf
+
 [LibraryClasses.ARM,LibraryClasses.AARCH64,LibraryClasses.PPC64]
   FdtLib|EmbeddedPkg/Library/FdtLib/FdtLib.inf
 
@@ -112,22 +114,45 @@
   UefiToolsPkg/Applications/RangeIsMapped/RangeIsMapped.inf
   UefiToolsPkg/Applications/GopTool/GopTool.inf
   UefiToolsPkg/Applications/PciRom/PciRom.inf
-  UefiToolsPkg/Applications/SetCon/SetCon.inf
-  UefiToolsPkg/Applications/ls/ls.inf
-  UefiToolsPkg/Applications/stat/stat.inf
-  UefiToolsPkg/Applications/cat/cat.inf
-  UefiToolsPkg/Applications/dd/dd.inf
-  UefiToolsPkg/Applications/grep/grep.inf
+  UefiToolsPkg/Applications/SetCon/SetCon.inf {
+    <LibraryClasses>
+      NULL|ShellPkg/Library/UefiShellCommandLib/UefiShellCommandLib.inf
+  }
+  UefiToolsPkg/Applications/ls/ls.inf {
+    <LibraryClasses>
+      NULL|ShellPkg/Library/UefiShellCommandLib/UefiShellCommandLib.inf
+  }
+  UefiToolsPkg/Applications/stat/stat.inf {
+    <LibraryClasses>
+      NULL|ShellPkg/Library/UefiShellCommandLib/UefiShellCommandLib.inf
+  }
+  UefiToolsPkg/Applications/cat/cat.inf {
+    <LibraryClasses>
+      NULL|ShellPkg/Library/UefiShellCommandLib/UefiShellCommandLib.inf
+  }
+  UefiToolsPkg/Applications/dd/dd.inf {
+    <LibraryClasses>
+      NULL|ShellPkg/Library/UefiShellCommandLib/UefiShellCommandLib.inf
+  }
+  UefiToolsPkg/Applications/grep/grep.inf {
+    <LibraryClasses>
+      NULL|ShellPkg/Library/UefiShellCommandLib/UefiShellCommandLib.inf
+
+  }
 
 [Components.X64,Components.AArch64]
-  UefiToolsPkg/Applications/tinycc/TCCInUEFI.inf
+# UefiToolsPkg/Applications/tinycc/TCCInUEFI.inf
 
 [Components.ARM,Components.AARCH64,Components.PPC64]
-  UefiToolsPkg/Applications/FdtDump/FdtDump.inf
+#  UefiToolsPkg/Applications/FdtDump/FdtDump.inf
 
 [Components.IA32,Components.X64,Components.ARM,Components.AArch64]
-  UefiToolsPkg/Drivers/QemuVideoDxe/QemuVideoDxe.inf {
-    <LibraryClasses>
-      FrameBufferBltLib|MdeModulePkg/Library/FrameBufferBltLib/FrameBufferBltLib.inf
-      PciLib|MdePkg/Library/UefiPciLibPciRootBridgeIo/UefiPciLibPciRootBridgeIo.inf
-  }
+  #UefiToolsPkg/Drivers/QemuVideoDxe/QemuVideoDxe.inf {
+  #  <LibraryClasses>
+  #    FrameBufferBltLib|MdeModulePkg/Library/FrameBufferBltLib/FrameBufferBltLib.inf
+  #    PciLib|MdePkg/Library/UefiPciLibPciRootBridgeIo/UefiPciLibPciRootBridgeIo.inf
+  #}
+
+
+[BuildOptions]
+  MSFT:RELEASE_*_*_CC_FLAGS      = /wd4244 /wd4018 /wd4131 /wd4090 /wd4054 /wd4152 /wd4706 /wd4098
